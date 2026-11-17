@@ -49,8 +49,8 @@ Note : CardKB uses a 4-pin HY2.0-4P connector. So use a 4-pin HY2.0-4P to dupont
 | Neodymium Disc Magnets (5 × 2 mm) | 4 | $2.00 | [AliExpress Search](https://www.aliexpress.com/w/wholesale-neodymium-magnets-5x2mm.html?spm=a2g0o.productlist.search.0) |
 | M2.5 Machine Screws | 8 | $1.00 | [AliExpress Search](https://www.aliexpress.com/w/wholesale-M2-machine-screws-5mm.html?spm=a2g0o.productlist.search.0) |
 | M2.7.5 Machine Screws | 8 | $1.00 | [AliExpress Search](https://www.aliexpress.com/w/wholesale-M2.75-machine-screws-5mm.html?spm=a2g0o.productlist.search.0) |
-| 3D Printed Case | 1 | $30.00 | [AliExpress Search](https://www.aliexpress.com/w/wholesale-3.7V-single-cell-LiPo-battery-3500mah.html?spm=a2g0o.productlist.search.0) |
-| **Total** | — | **$95.00** | — |
+| 3D Printed Case | 1 | $7.00 | [AliExpress Search](https://www.aliexpress.com/w/wholesale-3.7V-single-cell-LiPo-battery-3500mah.html?spm=a2g0o.productlist.search.0) |
+| **Total** | — | **$72.00** | — |
 
 ## Initilizing the cyberdeck
 
