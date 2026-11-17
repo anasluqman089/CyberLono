@@ -16,22 +16,22 @@ https://cad.onshape.com/documents/96cb9afee00ff4fbaaa8108e/w/c905764df47b4c9fb6a
 
 ## Wiring
 
-| Subsystem | From Pin | To Pin | Comments |
+| Subsystem | From Pin | To Pin |
 | :--- | :--- | :--- | :--- |
-| **Power** | 3.7V LiPo Battery (`+`) | IP5306 Module (`B+`) | Verify polarity first; reversed polarity destroys the IC. |
-| **Power** | 3.7V LiPo Battery (`-`) | IP5306 Module (`B-`) | - |
-| **Power** | IP5306 Module (`5V`) | Pi Zero 2 W (`Pin 2` or `Pin 4` - 5V) | Regulated 5V output; use 22–24 AWG wire. |
-| **Power** | IP5306 Module (`IN-`) | Pi Zero 2 W (`Pin 6` - GND) | - |
-| **Audio** | Pi Zero 2 W (`Pin 2` or `Pin 4` - 5V) | MAX98357A (`VIN`) | - |
-| **Audio** | Pi Zero 2 W (`Pin 9` - GND) | MAX98357A (`GND`) | G- |
-| **Audio** | Pi Zero 2 W (`Pin 12` / `GPIO 18`) | MAX98357A (`BCLK`) | - |
-| **Audio** | Pi Zero 2 W (`Pin 35` / `GPIO 19`) | MAX98357A (`LRC`) | - |
-| **Audio** | Pi Zero 2 W (`Pin 40` / `GPIO 21`) | MAX98357A (`DIN`) | - |
-| **Audio** | MAX98357A (`+` and `-`) | CES-281043 Speaker (`Red` & `Black`) | - |
-| **Keyboard** | Pi Zero 2 W (`Pin 1` - 3.3V) | CardKB (`3V3` / `VCC`) | Do **not** connect to 5V; CardKB runs on 3.3V logic. |
-| **Keyboard** | Pi Zero 2 W (`Pin 14` - GND) | CardKB (`GND`) | - |
-| **Keyboard** | Pi Zero 2 W (`Pin 3` / `GPIO 2`) | CardKB (`SDA`) | I2C Data line (Default I2C address: `0x5F`). |
-| **Keyboard** | Pi Zero 2 W (`Pin 5` / `GPIO 3`) | CardKB (`SCL`) | I2C Clock line. |
+| **Power** | 3.7V LiPo Battery (`+`) | IP5306 Module (`B+`) |
+| **Power** | 3.7V LiPo Battery (`-`) | IP5306 Module (`B-`) |
+| **Power** | IP5306 Module (`5V`) | Pi Zero 2 W (`Pin 2` or `Pin 4` - 5V) |
+| **Power** | IP5306 Module (`IN-`) | Pi Zero 2 W (`Pin 6` - GND) |
+| **Audio** | Pi Zero 2 W (`Pin 2` or `Pin 4` - 5V) | MAX98357A (`VIN`) |
+| **Audio** | Pi Zero 2 W (`Pin 9` - GND) | MAX98357A (`GND`) |
+| **Audio** | Pi Zero 2 W (`Pin 12` / `GPIO 18`) | MAX98357A (`BCLK`) |
+| **Audio** | Pi Zero 2 W (`Pin 35` / `GPIO 19`) | MAX98357A (`LRC`) |
+| **Audio** | Pi Zero 2 W (`Pin 40` / `GPIO 21`) | MAX98357A (`DIN`) |
+| **Audio** | MAX98357A (`+` and `-`) | CES-281043 Speaker (`Red` & `Black`) |
+| **Keyboard** | Pi Zero 2 W (`Pin 1` - 3.3V) | CardKB (`3V3` / `VCC`) |
+| **Keyboard** | Pi Zero 2 W (`Pin 14` - GND) | CardKB (`GND`) |
+| **Keyboard** | Pi Zero 2 W (`Pin 3` / `GPIO 2`) | CardKB (`SDA`) |
+| **Keyboard** | Pi Zero 2 W (`Pin 5` / `GPIO 3`) | CardKB (`SCL`) |
 
 Note : CardKB uses a 4-pin HY2.0-4P connector. So use a 4-pin HY2.0-4P to dupont wire
 
