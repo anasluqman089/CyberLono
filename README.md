@@ -1,6 +1,6 @@
 # CyberLono
 
-![Uploading image.png…]()
+<img width="495" height="357" alt="image" src="https://github.com/user-attachments/assets/01d0a3a0-23ce-43e7-9ec7-1e4f2efbe2e7" />
 
 _Hello everyone!_
 
