@@ -39,7 +39,7 @@ Note : CardKB uses a 4-pin HY2.0-4P connector. So use a 4-pin HY2.0-4P to dupont
 
 | Componets | Qty | Price (USD) | Buy Link |
 | :--- | :--- | :--- | :--- |
-| Raspberry Pi Zero 2 W | 1 | $35.00 | [AliExpress Search](https://www.aliexpress.com/w/wholesale-Raspberry-Pi-Zero-2-W.html?spm=a2g0o.productlist.search.0) |
+| Raspberry Pi Zero 2 W | 1 | $15.00 | [AliExpress Search](https://www.aliexpress.com/w/wholesale-Raspberry-Pi-Zero-2-W.html?spm=a2g0o.productlist.search.0) |
 | 3.5" SPI Touchscreen Display | 1 | $15.00 | [AliExpress Search](https://www.aliexpress.com/w/wholesale-3.5-inch-Raspberry-Pi-display.html?spm=a2g0o.productlist.search.0) |
 | M5Stack CardKB (I2C Mini QWERTY Keyboard) | 1 | $12.00 | [AliExpress Search](https://www.aliexpress.com/w/wholesale-M5Stack-CardKB.html?spm=a2g0o.productlist.search.0) |
 | MAX98357A I2S 3W Class D Amp Breakout | 1 | $4.00 | [AliExpress Search](https://www.aliexpress.com/w/wholesale-MAX98357A-I2S-amplifier.html?spm=a2g0o.productlist.search.0) |
@@ -49,7 +49,8 @@ Note : CardKB uses a 4-pin HY2.0-4P connector. So use a 4-pin HY2.0-4P to dupont
 | Neodymium Disc Magnets (5 × 2 mm) | 4 | $2.00 | [AliExpress Search](https://www.aliexpress.com/w/wholesale-neodymium-magnets-5x2mm.html?spm=a2g0o.productlist.search.0) |
 | M2.5 Machine Screws | 8 | $1.00 | [AliExpress Search](https://www.aliexpress.com/w/wholesale-M2-machine-screws-5mm.html?spm=a2g0o.productlist.search.0) |
 | M2.7.5 Machine Screws | 8 | $1.00 | [AliExpress Search](https://www.aliexpress.com/w/wholesale-M2.75-machine-screws-5mm.html?spm=a2g0o.productlist.search.0) |
-| **Total** | — | **$85.00** | — |
+| 3D Printed Case | 1 | $30.00 | [AliExpress Search](https://www.aliexpress.com/w/wholesale-3.7V-single-cell-LiPo-battery-3500mah.html?spm=a2g0o.productlist.search.0) |
+| **Total** | — | **$95.00** | — |
 
 ## Initilizing the cyberdeck
 
