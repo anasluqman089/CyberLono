@@ -17,11 +17,11 @@ https://cad.onshape.com/documents/96cb9afee00ff4fbaaa8108e/w/c905764df47b4c9fb6a
 ## Wiring
 
 | Subsystem | From Pin | To Pin |
-| :--- | :--- | :--- | :--- |
+| :--- | :--- | :--- |
 | **Power** | 3.7V LiPo Battery (`+`) | IP5306 Module (`B+`) |
 | **Power** | 3.7V LiPo Battery (`-`) | IP5306 Module (`B-`) |
 | **Power** | IP5306 Module (`5V`) | Pi Zero 2 W (`Pin 2` or `Pin 4` - 5V) |
-| **Power** | IP5306 Module (`IN-`) | Pi Zero 2 W (`Pin 6` - GND) |
+| **Power** | IP5306 Module (`GND` or `OUT-`) | Pi Zero 2 W (`Pin 6` - GND) |
 | **Audio** | Pi Zero 2 W (`Pin 2` or `Pin 4` - 5V) | MAX98357A (`VIN`) |
 | **Audio** | Pi Zero 2 W (`Pin 9` - GND) | MAX98357A (`GND`) |
 | **Audio** | Pi Zero 2 W (`Pin 12` / `GPIO 18`) | MAX98357A (`BCLK`) |
@@ -33,7 +33,7 @@ https://cad.onshape.com/documents/96cb9afee00ff4fbaaa8108e/w/c905764df47b4c9fb6a
 | **Keyboard** | Pi Zero 2 W (`Pin 3` / `GPIO 2`) | CardKB (`SDA`) |
 | **Keyboard** | Pi Zero 2 W (`Pin 5` / `GPIO 3`) | CardKB (`SCL`) |
 
-Note : CardKB uses a 4-pin HY2.0-4P connector. So use a 4-pin HY2.0-4P to dupont wire
+Note : CardKB uses a 4-pin HY2.0-4P connector. So use a 4-pin HY2.0-4P to dupont wire adapter
 
 ## BOM 
 
@@ -49,6 +49,103 @@ Note : CardKB uses a 4-pin HY2.0-4P connector. So use a 4-pin HY2.0-4P to dupont
 | Neodymium Disc Magnets (5 × 2 mm) | 4 | $2.00 | [AliExpress Search](https://www.aliexpress.com/w/wholesale-neodymium-magnets-5x2mm.html?spm=a2g0o.productlist.search.0) |
 | M2.5 Machine Screws | 8 | $1.00 | [AliExpress Search](https://www.aliexpress.com/w/wholesale-M2-machine-screws-5mm.html?spm=a2g0o.productlist.search.0) |
 | M2.7.5 Machine Screws | 8 | $1.00 | [AliExpress Search](https://www.aliexpress.com/w/wholesale-M2.75-machine-screws-5mm.html?spm=a2g0o.productlist.search.0) |
+
+## Initilizing the cyberdeck
+
+### 1. Wiring & Pinout Table
+
+Follow th wring guide given.
+
+### 2. Software Initialization (Single Terminal Script)
+
+Run this single command block in your Raspberry Pi OS terminal to enable I2C/I2S, install dependencies, create the CardKB driver, and configure auto-start on boot:
+
+    
+    sudo bash -c '
+    cat << "EOF" >> /boot/firmware/config.txt
+      
+    # Cyberdeck Hardware Overlays
+    dtparam=i2c_arm=on
+    dtparam=i2s=on
+    dtoverlay=hifiberry-dac
+    dtoverlay=i2s-mmap
+    EOF
+        
+    apt-get update && apt-get install -y python3-smbus i2c-tools python3-evdev
+    modprobe uinput
+    grep -qxF "uinput" /etc/modules || echo "uinput" >> /etc/modules
+        
+    cat << "EOF" > /home/pi/cardkb_driver.py
+    import time
+    import smbus2
+    from evdev import UInput, ecodes as e
+        
+    I2C_BUS = 1
+    CARDKB_ADDR = 0x5F
+        
+    KEY_MAP = {
+        0x08: e.KEY_BACKSPACE, 0x09: e.KEY_TAB, 0x0D: e.KEY_ENTER,
+        0x1B: e.KEY_ESC, 0x20: e.KEY_SPACE, 0xB4: e.KEY_LEFT,
+        0xB5: e.KEY_UP, 0xB6: e.KEY_DOWN, 0xB7: e.KEY_RIGHT,
+    }
+    for ch in "abcdefghijklmnopqrstuvwxyz":
+        KEY_MAP[ord(ch)] = getattr(e, f"KEY_{ch.upper()}")
+    for ch in "0123456789":
+        KEY_MAP[ord(ch)] = getattr(e, f"KEY_{ch}")
+        
+    SHIFT_MAP = {
+        "!": e.KEY_1, "@": e.KEY_2, "#": e.KEY_3, "$": e.KEY_4, "%": e.KEY_5,
+        "^": e.KEY_6, "&": e.KEY_7, "*": e.KEY_8, "(": e.KEY_9, ")": e.KEY_0,
+        "_": e.KEY_MINUS, "+": e.KEY_EQUAL, "{": e.KEY_LEFTBRACE, "}": e.KEY_RIGHTBRACE,
+        "|": e.KEY_BACKSLASH, ":": e.KEY_SEMICOLON, "\"": e.KEY_APOSTROPHE,
+        "<": e.KEY_COMMA, ">": e.KEY_DOT, "?": e.KEY_SLASH, "~": e.KEY_GRAVE,
+    }
+    for ch in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+        SHIFT_MAP[ch] = getattr(e, f"KEY_{ch}")
+   
+    PUNCT_MAP = {
+        "-": e.KEY_MINUS, "=": e.KEY_EQUAL, "[": e.KEY_LEFTBRACE, "]": e.KEY_RIGHTBRACE,
+        "\\": e.KEY_BACKSLASH, ";": e.KEY_SEMICOLON, "\x27": e.KEY_APOSTROPHE,
+        ",": e.KEY_COMMA, ".": e.KEY_DOT, "/": e.KEY_SLASH, "`": e.KEY_GRAVE,
+    }
+ 
+    bus = smbus2.SMBus(I2C_BUS)
+    ui = UInput()
+
+    def press_key(keycode, shift=False):
+        if shift:
+            ui.write(e.EV_KEY, e.KEY_LEFTSHIFT, 1)
+        ui.write(e.EV_KEY, keycode, 1)
+        ui.write(e.EV_KEY, keycode, 0)
+        if shift:
+            ui.write(e.EV_KEY, e.KEY_LEFTSHIFT, 0)
+        ui.syn()
+
+    while True:
+        try:
+            data = bus.read_byte(CARDKB_ADDR)
+            if data != 0x00:
+                char = chr(data)
+                if data in KEY_MAP:
+                    press_key(KEY_MAP[data])
+                elif char in SHIFT_MAP:
+                    press_key(SHIFT_MAP[char], shift=True)
+                elif char in PUNCT_MAP:
+                    press_key(PUNCT_MAP[char])
+        except Exception:
+            pass
+        time.sleep(0.02)
+    EOF
+
+    chown pi:pi /home/pi/cardkb_driver.py
+    (crontab -l 2>/dev/null; echo "@reboot sleep 5 && python3 /home/pi/cardkb_driver.py &") | crontab -
+    reboot
+    '
+
+## 4. Verification Commands
+
+* **Check CardKB I2C (`5f` should appear):** `i2cdetect -y 1`
+* **Test MAX98357A Speaker Audio:** `speaker-test -c2 -twav`
 
 ## Image
 
